@@ -10,11 +10,11 @@ import {
 // import Signup from "./pages/Signup";
 import { Home, Profile, Signup, SingleImage, Login } from "./pages";
 
-// import ProtectedRoutes from "./components/ProtectedRoutes";
-import { ProtectedRoutes } from "./components";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+// import { ProtectedRoutes, AsideLeft } from "./components";
 import MainLayout from "./layout/MainLayout";
 import { useSelector } from "react-redux";
-import { store } from "./app/store";
+// import { store } from "./app/store";
 
 function App() {
   const { user } = useSelector((store) => store.user);
