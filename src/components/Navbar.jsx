@@ -6,6 +6,7 @@ import { SlMenu } from "react-icons/sl";
 import { MdGroups, MdOutlineHomeWork, MdTranslate } from "react-icons/md";
 import { LuTabletSmartphone } from "react-icons/lu";
 import { SiUnsplash } from "react-icons/si";
+import Search from "./Search";
 
 function Navbar() {
   return (
@@ -144,7 +145,9 @@ function Navbar() {
       </div>
 
       <div className="py-3 px-6 flex items-center gap-6">
-        <p>Search</p>
+        <div className="w-full">
+          <Search />
+        </div>
         <button className="btn cursor-pointer max-[973px]:hidden">
           Get Unsplash+
         </button>
