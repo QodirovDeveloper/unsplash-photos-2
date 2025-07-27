@@ -1,61 +1,49 @@
-import {
-  Navigate,
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
-// import Home from "./pages/Home";
-// import Profile from "./pages/Profile";
-// import SingleImage from "./pages/SingleImage";
-// import Login from "./pages/Login";
-// import Signup from "./pages/Signup";
-import { Home, Profile, Signup, SingleImage, Login } from "./pages";
+// rrd imports
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import ProtectedRoutes from "./components/ProtectedRoutes";
-// import { ProtectedRoutes, AsideLeft } from "./components";
-import MainLayout from "./layout/MainLayout";
-// import { useSelector } from "react-redux";
-// import { store } from "./app/store";
+// pages
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+
+// layouts
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
-  // const user = false; 
-  // const { user } = useSelector((store) => store.user);
-  const routes = createBrowserRouter([
+  const routes = createBrowserRouter(
+    [
+      {
+        path: "/",
+        element: <MainLayout />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+          },
+          {
+            path: "/login",
+            element: <Login />,
+          },
+          {
+            path: "/signup",
+            element: <Signup />,
+          },
+        ],
+      },
+    ],
     {
-      path: "/",
-      element: <MainLayout />,
-      children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "/login",
-          element: <Login />,
-        },
-        {
-          path: "/signup",
-          element: <Signup />,
-        },
-        // {
-        //   path: "/profile",
-        //   element: <Profile />,
-        // },
-        // {
-        //   path: "/singleImage/:id",
-        //   element: <SingleImage />,
-        // },
-      ],
-    },
-    // {
-    //   path: "/login",
-    //   element: user ? <Navigate to="/" /> : <Login />,
-    // },
-    // {
-    //   path: "/signup",
-    //   element: user ? <Navigate to="/" /> : <Signup />,
-    // },
-  ]);
-  return <RouterProvider router={routes} />;
+      future: {
+        v7_relativeSplatPath: true,
+        v7_fetcherPersist: true,
+        v7_skipActionErrorRevalidation: true,
+        v7_partialHydration: true,
+        v7_normalizeFormMethod: true,
+      },
+    }
+  );
+  return (
+    <RouterProvider router={routes} future={{ v7_startTransition: true }} />
+  );
 }
 
 export default App;
