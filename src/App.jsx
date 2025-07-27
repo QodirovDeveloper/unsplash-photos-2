@@ -13,42 +13,47 @@ import { Home, Profile, Signup, SingleImage, Login } from "./pages";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 // import { ProtectedRoutes, AsideLeft } from "./components";
 import MainLayout from "./layout/MainLayout";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 // import { store } from "./app/store";
 
 function App() {
-  const { user } = useSelector((store) => store.user);
+  // const user = false; 
+  // const { user } = useSelector((store) => store.user);
   const routes = createBrowserRouter([
     {
       path: "/",
-      element: (
-        <ProtectedRoutes user={user}>
-          <MainLayout />
-        </ProtectedRoutes>
-      ),
+      element: <MainLayout />,
       children: [
         {
           index: true,
           element: <Home />,
         },
         {
-          path: "/profile",
-          element: <Profile />,
+          path: "/login",
+          element: <Login />,
         },
         {
-          path: "/singleImage/:id",
-          element: <SingleImage />,
+          path: "/signup",
+          element: <Signup />,
         },
+        // {
+        //   path: "/profile",
+        //   element: <Profile />,
+        // },
+        // {
+        //   path: "/singleImage/:id",
+        //   element: <SingleImage />,
+        // },
       ],
     },
-    {
-      path: "/login",
-      element: user ? <Navigate to="/" /> : <Login />,
-    },
-    {
-      path: "/signup",
-      element: user ? <Navigate to="/" /> : <Signup />,
-    },
+    // {
+    //   path: "/login",
+    //   element: user ? <Navigate to="/" /> : <Login />,
+    // },
+    // {
+    //   path: "/signup",
+    //   element: user ? <Navigate to="/" /> : <Signup />,
+    // },
   ]);
   return <RouterProvider router={routes} />;
 }

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ThemeMode from "./ThemeMode";
 import { FaAngleDown, FaRegFileAlt, FaRegUserCircle } from "react-icons/fa";
 import { GoBell } from "react-icons/go";
@@ -9,8 +9,9 @@ import { SiUnsplash } from "react-icons/si";
 import Search from "./Search";
 
 function Navbar() {
+  const user = !!false;
   return (
-    <div className="fixed top-0 min-[973px]:left-[62px]  z-99999 left-0 right-0 backdrop-blur">
+    <div className="fixed top-0 min-[973px]:left-[62px]  z-99999 left-0 right-0 back drop-blur">
       <div className="min-[973px]:hidden pt-4 px-7 flex items-center justify-between">
         <div className="flex items-center gap-1">
           <span className="text-2xl">
@@ -148,10 +149,33 @@ function Navbar() {
         <div className="w-full">
           <Search />
         </div>
-        <button className="btn cursor-pointer max-[973px]:hidden">
-          Get Unsplash+
-        </button>
-        <button className="btn max-[973px]:hidden">Submit an image</button>
+        {/* ========== */}
+        {user && (
+          <div className="flex items-center gap-3">
+            <p>Hasanboy</p>
+            <div className="avatar ">
+              <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring-2 ring-offset-2">
+                <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+              </div>
+            </div>
+            <button className="btn">
+              <NavLink to="/signup">Signup</NavLink>
+            </button>
+          </div>
+        )}
+
+        {!user && (
+          <nav className="flex items-center gap-2">
+            <button className="btn">
+              <NavLink to="/login">Login</NavLink>
+            </button>
+            <button className="btn">
+              <NavLink to="/signup">Signup</NavLink>
+            </button>
+          </nav>
+        )}
+
+        {/* ========= */}
       </div>
 
       <div className="w-full overflow-x-auto whitespace-nowrap py-2 px-4 bg-base-100 shadow-md">
