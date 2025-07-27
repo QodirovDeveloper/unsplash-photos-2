@@ -2,7 +2,6 @@
 import styles from "./Auth.module.css";
 
 function Login() {
-  const loading = !true;
   return (
     <div className={styles.formWrapper}>
       <form className={styles.form}>
@@ -15,12 +14,8 @@ function Login() {
           <span>Password:</span>
           <input type="password" placeholder="password" />
         </label>
-        {loading && (
-          <button className={styles.disabled} disabled>
-            Loading...
-          </button>
-        )}
-        {!loading && <button>Login</button>}
+
+        <button>Login</button>
       </form>
     </div>
   );
