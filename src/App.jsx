@@ -1,49 +1,52 @@
-// rrd imports
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-// pages
-import Home from "./pages/Home";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-
-// layouts
-import MainLayout from "./layouts/MainLayout";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+// import Home from "./pages/Home";
+// import Profile from "./pages/Profile";
+// import SingleImage from "./pages/SingleImage";
+// import Login from "./pages/Login";
+// import Signup from "./pages/Signup";
+import {Home, Profile, SingleImage, Login, Signup} from './pages/index'
+import { useSelector } from "react-redux";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import MainLayout from "./layout/MainLayout";
 
 function App() {
-  const routes = createBrowserRouter(
-    [
-      {
-        path: "/",
-        element: <MainLayout />,
-        children: [
-          {
-            index: true,
-            element: <Home />,
-          },
-          {
-            path: "/login",
-            element: <Login />,
-          },
-          {
-            path: "/signup",
-            element: <Signup />,
-          },
-        ],
-      },
-    ],
+  const { user } = useSelector((store) => store.user);
+  const routes = createBrowserRouter([
     {
-      future: {
-        v7_relativeSplatPath: true,
-        v7_fetcherPersist: true,
-        v7_skipActionErrorRevalidation: true,
-        v7_partialHydration: true,
-        v7_normalizeFormMethod: true,
-      },
-    }
-  );
-  return (
-    <RouterProvider router={routes} future={{ v7_startTransition: true }} />
-  );
+      path: "/",
+      element: (
+        <ProtectedRoutes user={user}>
+          <MainLayout />
+        </ProtectedRoutes>
+      ),
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+        },
+        {
+          path: "/singleImage/:id",
+          element: <SingleImage />,
+        },
+      ],
+    },
+    {
+      path: "/login",
+      element: user ? <Navigate to="/" /> : <Login />,
+    },
+    {
+      path: "/signup",
+      element: user ? <Navigate to="/" /> : <Signup />,
+    },
+  ]);
+  return <RouterProvider router={routes} />;
 }
 
 export default App;
+
+// const ACCESS_KEY = "O2XRyjimvUwQaxKL4TysGBBPrQEa-1mb4d-FKIx3-pY";
+// `https://api.unsplash.com/search/photos?query=${seatchParams}&client_id=` +
