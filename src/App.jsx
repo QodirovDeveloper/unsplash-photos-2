@@ -1,13 +1,9 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
-// import Home from "./pages/Home";
-// import Profile from "./pages/Profile";
-// import SingleImage from "./pages/SingleImage";
-// import Login from "./pages/Login";
-// import Signup from "./pages/Signup";
 import {Home, Profile, SingleImage, Login, Signup} from './pages/index'
 import { useSelector } from "react-redux";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import MainLayout from "./layout/MainLayout";
+
 
 function App() {
   const { user } = useSelector((store) => store.user);
