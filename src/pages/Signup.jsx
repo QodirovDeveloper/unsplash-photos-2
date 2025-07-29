@@ -22,7 +22,7 @@ function Signup() {
           <div className="lg:w-1/2 w-full h-full bg-[url('https://picsum.photos/1200/800')] bg-cover bg-center bg-no-repeat"></div>
 
           {/* Form container */}
-          <div className="lg:w-1/2 w-full flex items-cent er justify-center h-full lg:static absolute inset-0 z-10 max-lg:bg-black/60">
+          <div className="lg:w-1/2 w-full flex items-center justify-center h-full lg:static absolute inset-0 z-10 max-lg:bg-black/60">
             <form onSubmit={handleSubmit} className="max-w-sm w-full">
               <h2 className="text-2xl font-bold max-lg:text-white mb-4">
                 Sign Up
