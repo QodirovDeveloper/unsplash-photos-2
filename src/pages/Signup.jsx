@@ -1,6 +1,7 @@
 import FormInput from "../components/FormInput";
 import { Link } from "react-router-dom";
 import { useSignup } from "../hooks/useSignup";
+import toast from "react-hot-toast";
 
 function Signup() {
   const { isPending, signup } = useSignup();
@@ -8,10 +9,16 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const userName = formData.get("userName");
+    const displayName = formData.get("displayName");
     const email = formData.get("email");
     const password = formData.get("password");
-    await signup(userName, email, password);
+    const confirmPassword = formData.get("confirmPassword");
+
+    if (password !== confirmPassword) {
+      return toast.error("Passwords do not match");
+    }
+
+    await signup(displayName, email, password);
   };
   return (
     <main>
@@ -28,12 +35,12 @@ function Signup() {
                 Sign Up
               </h2>
 
-              <FormInput label="User Name" name="userName" type="text" />
+              <FormInput label="User Name" name="displayName" type="text" />
               <FormInput label="Email" name="email" type="email" />
               <FormInput label="Password" name="password" type="password" />
               <FormInput
                 label="Confirm Password"
-                name="password"
+                name="confirmPassword"
                 type="password"
               />
               <button

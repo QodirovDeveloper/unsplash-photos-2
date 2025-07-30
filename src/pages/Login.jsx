@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import { useLogin } from "../hooks/useLogin";
-import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const navigate = useNavigate();
   const { isPending, login } = useLogin();
 
   const handleSubmit = async (e) => {
@@ -14,9 +12,6 @@ function Login() {
     const password = formData.get("password");
     const success = await login(email, password);
     console.log("Login success:", success);
-    if (success) {
-      setTimeout(() => navigate("/"), 100);
-    }
   };
   return (
     <main>

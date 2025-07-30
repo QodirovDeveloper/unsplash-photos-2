@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase/config";
 import toast from "react-hot-toast";
-import { login } from "../app/features/userSlice";
+// import { login } from "../app/features/userSlice";
 
 
 export const useSignup = () => {
   const [isPending, setIsPending] = useState(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const signup = async (userName, email, password) => {
+  const signup = async (displayName, email, password) => {
     setIsPending(true);
     try {
       const req = await createUserWithEmailAndPassword(auth, email, password);
@@ -19,11 +19,11 @@ export const useSignup = () => {
         throw new Error("Authentication filed");
       }
       await updateProfile(auth.currentUser, {
-        userName,
-        photoURL: "https://api.dicebear.com/9.x/initials/svg?seed=" + userName,
+        displayName,
+        photoURL: "https://api.dicebear.com/9.x/initials/svg?seed=" + displayName,
       });
-      dispatch(login(req.user));
-      toast.success(`Welcome, ${auth.currentUser.userName}`);
+      // dispatch(login(req.user));
+      toast.success(`Welcome, ${auth.currentUser.displayName}`);
     } catch (error) {
       toast.error(error.message);
     } finally {

@@ -10,18 +10,14 @@ export const useLogin = () => {
   const dispatch = useDispatch();
 
   const login = async (email, password) => {
-    console.log("Email:", email);
-    console.log("Password:", password);
     setIsPending(true);
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
-      console.log(res);
 
-      if (!res.user) {
-        throw new Error("Login failed");
-      }
+      if (!res.user) throw new Error("Login failed");
 
-      dispatch(loginActoin(res.user));
+      const { uid, email: userEmail, displayName } = res.user;
+      dispatch(loginActoin({ uid, email: userEmail, displayName }));
       toast.success(`Welcome back, ${res.user.displayName || "user"}!`);
       return true;
     } catch (error) {
