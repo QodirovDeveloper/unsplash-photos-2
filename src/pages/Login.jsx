@@ -5,13 +5,12 @@ import { useLogin } from "../hooks/useLogin";
 function Login() {
   const { isPending, login } = useLogin();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const email = formData.get("email");
     const password = formData.get("password");
-    const success = await login(email, password);
-    console.log("Login success:", success);
+    login(email, password);
   };
   return (
     <main>
@@ -29,7 +28,6 @@ function Login() {
               <FormInput label="Password" name="password" type="password" />
               <button
                 type="submit"
-                // disabled={isPending}
                 className={`w-[320px] my-2 btn btn-primary ${
                   isPending
                     ? "opacity-50 pointer-events-none cursor-not-allowed"

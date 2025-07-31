@@ -1,23 +1,25 @@
-// src/hooks/useLogout.js
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/config";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { logOut } from "../app/features/userSlice";
+import { auth } from "../firebase/config";
 import toast from "react-hot-toast";
+import { signOut } from "firebase/auth";
+import { logOut } from "../app/features/userSlice";
 
 export const useLogout = () => {
+  const [isPending, setIsPending] = useState(false);
   const dispatch = useDispatch();
 
-  const logoutUser = async () => {
+  const logout = async () => {
+    setIsPending(true);
     try {
       await signOut(auth);
       dispatch(logOut());
-      toast.success("Successfully logged out");
+      toast.success(`See you`);
     } catch (error) {
-      toast.error("Logout failed");
-      console.error(error.message);
+      toast.error(error.message);
+    } finally {
+      setIsPending(false);
     }
   };
-
-  return { logoutUser };
+  return { logout, isPending };
 };
